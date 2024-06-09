@@ -1,0 +1,89 @@
+Table Users {
+  id integer [primary key, not null, increment]
+  username varchar
+  password varchar
+  first_name varchar
+  second_name varchar
+}
+
+Table UserSettings {
+  id integer [primary key, not null, increment]
+  type integer [default: 1] // 1 - волонтер, 2 - куратор (enum)
+  id_card integer [null] // если null - то нельзя выгуливать собаку в одиночку
+  user integer
+  phone varchar
+  telegram varchar
+  is_validated bool
+}
+
+enum DogAge {
+  newborn [note: 'новорожденный щенок']
+  puppy [note: 'щенок от 3-х до 18-и месяцев']
+  adult [note: 'взрослая собака']
+  old [note: 'старушка']
+}
+
+enum DogSize {
+  small [note: 'маленький, от 1 до 10 кг']
+  middle [note: 'средний, от 11 до 45 кг']
+  big [note: 'крупный, от 46 до 70 кг']
+  huge [note: 'очень крупный, от 71 кг']
+}
+
+enum DogColor {
+  light
+  dark
+}
+
+Table Dogs {
+  id integer [primary key, not null, increment]
+  age DogAge [default: 'puppy']
+  breed varchar [default: 'дворняга']
+  size DogSize [default: 'средний']
+  color DogColor
+  activity varchar
+  relations_with_cats bool
+  relations_with_dogs bool
+  relations_with_kids bool 
+  relations_with_adults bool
+  curator integer [not null]
+  gender bool // true - девочка, false - мальчик
+  name varchar
+  address varchar
+  desc varchar
+}
+
+Table DogPhotos {
+  id integer [primary key, not null, increment]
+  url varchar
+  dog integer [not null]
+}
+
+Table Walks {
+  id integer [primary key, not null, increment]
+  start timestamp
+  finish timestamp [default: 'start + 1h'] // finish - start > 1h
+
+}
+
+Table WalkUserDog {
+  id integer [primary key, not null, increment]
+  walk integer [not null]
+  user integer [not null] 
+  dog integer [not null] // не больше двух собак на волонтера
+  indexes {
+    (walk, user, dog) [unique]
+  }
+}
+
+Ref: UserSettings.user > Users.id
+
+Ref: DogPhotos.dog > Dogs.id
+
+Ref: Dogs.curator > Users.id // куратор должен иметь пропуск
+
+Ref: WalkUserDog.walk > Walks.id
+
+Ref: WalkUserDog.user > Users.id
+
+Ref: WalkUserDog.dog > Dogs.id
