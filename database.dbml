@@ -14,6 +14,16 @@ Table UserSettings {
   phone varchar
   telegram varchar
   is_validated bool
+  // период действия пропуска
+}
+
+Table UserPass {
+  id integer [primary key, not null, increment]
+  user integer [not null]
+  id_card integer [not null] // если null - то нельзя выгуливать собаку в одиночку
+  is_valid_until_1 timestamp [not null]
+  is_valid_until_2 timestamp [null]
+  is_valid_until_3 timestamp [null]
 }
 
 enum DogAge {
@@ -44,7 +54,7 @@ Table Dogs {
   activity varchar
   relations_with_cats bool
   relations_with_dogs bool
-  relations_with_kids bool 
+  relations_with_kids bool
   relations_with_adults bool
   curator integer [not null]
   gender bool // true - девочка, false - мальчик
@@ -69,7 +79,7 @@ Table Walks {
 Table WalkUserDog {
   id integer [primary key, not null, increment]
   walk integer [not null]
-  user integer [not null] 
+  user integer [not null]
   dog integer [not null] // не больше двух собак на волонтера
   indexes {
     (walk, user, dog) [unique]
@@ -87,3 +97,5 @@ Ref: WalkUserDog.walk > Walks.id
 Ref: WalkUserDog.user > Users.id
 
 Ref: WalkUserDog.dog > Dogs.id
+
+Ref: UserPass.user > Users.id
