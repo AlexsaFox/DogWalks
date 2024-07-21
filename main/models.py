@@ -25,6 +25,43 @@ class UserSettings (models.Model):
     is_validated = models.BooleanField(default=False)
 
 
+class DogAge (models.IntegerChoices):
+    NEWBORN = 1, "новорожденный щенок"
+    PUPPY = 2, "щенок"
+    ADULT = 3, "взрослая собака"
+    OLD = 4, "старенький пес"
+
+
+class DogSize(models.IntegerChoices):
+    SMALL = 1, 'маленький, от 1 до 10 кг'
+    MIDDLE = 2, 'средний, от 11 до 45 кг'
+    BIG = 3, 'крупный, от 46 до 70 кг'
+    HUGE = 4, 'очень крупный, от 71 кг'
+
+
+class DogColor(models.IntegerChoices):
+    LIGHT = 1, "светлый"
+    RED = 2, "рыжий"
+    DARK = 3, "темный"
+
+
+class Dog (models.Model):
+    age = models.IntegerField(choices=DogAge.choices, default=DogAge.PUPPY)
+    breed = models.TextField(default="дворняга", max_length="200")
+    size = models.IntegerField(choices=DogSize.choices, default=DogSize.MIDDLE)
+    color = models.IntegerField(choices=DogColor)
+    activity = models.TextField(max_length="500")
+    relations_with_cats = models.BooleanField(null=True)
+    relations_with_dogs = models.BooleanField(null=True)
+    relations_with_kids = models.BooleanField(null=True)
+    relations_with_adults = models.BooleanField(null=True)
+    curator = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    gender = models.BooleanField(help_text="true - девочка, false - мальчик")
+    name = models.TextField(max_length="100")
+    address = models.TextField(max_length="100")
+    description = models.TextField(max_length="1000")
+
+
 
 
 

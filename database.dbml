@@ -51,10 +51,10 @@ Table Dogs {
   size DogSize [default: 'средний']
   color DogColor
   activity varchar
-  relations_with_cats bool
-  relations_with_dogs bool
-  relations_with_kids bool
-  relations_with_adults bool
+  relations_with_cats bool [null]
+  relations_with_dogs bool [null]
+  relations_with_kids bool [null]
+  relations_with_adults bool [null]
   curator integer [not null]
   gender bool // true - девочка, false - мальчик
   name varchar
