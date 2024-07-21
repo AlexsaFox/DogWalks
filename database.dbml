@@ -9,17 +9,15 @@ Table Users {
 Table UserSettings {
   id integer [primary key, not null, increment]
   type integer [default: 1] // 1 - волонтер, 2 - куратор (enum)
-  id_card integer [null] // если null - то нельзя выгуливать собаку в одиночку
-  user integer
+  user integer [not null, unique]
   phone varchar
   telegram varchar
-  is_validated bool
-  // период действия пропуска
+  is_validated bool [default: false]
 }
 
 Table UserPass {
   id integer [primary key, not null, increment]
-  user integer [not null]
+  user integer [not null, unique]
   id_card integer [not null] // если null - то нельзя выгуливать собаку в одиночку
   is_valid_until_1 timestamp [not null]
   is_valid_until_2 timestamp [null]
@@ -42,6 +40,7 @@ enum DogSize {
 
 enum DogColor {
   light
+  red [note: "рыжий"]
   dark
 }
 
