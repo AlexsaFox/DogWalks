@@ -1,5 +1,9 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import UniqueConstraint
+
 
 # Create your models here.
 
@@ -62,6 +66,33 @@ class Dog (models.Model):
     description = models.TextField(max_length="1000")
 
 
+class DogPhoto(models.Model):
+    url = models.FileField(upload_to="dogsphotos")
+    dog = models.ForeignKey(to=Dog, on_delete=models.CASCADE)
+
+
+class Walk(models.Model):
+    start = models.DateTimeField(null=False)
+    finish = models.DateTimeField(null=True)
+
+    def clean(self):
+        if self.finish is None:
+            self.finish = self.start + datetime.timedelta(hours=1)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
+class WalkUserDog(models.Model):
+    walk = models.ForeignKey(to=Walk, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    dog = models.ForeignKey(to=Dog, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['walk', 'user', 'dog'], name='unique_user_for_dog')
+        ]
 
 
 
