@@ -29,6 +29,9 @@
 10. редактирование прогулки
 11. просмотр деталей 1-й прогулки
 
+### Стек
+* Backend: Django + sqlite
+* Frontend: SCSS, Vue JS
 
 ### База данных
 * по ссылке https://dbdiagram.io/d/dogs-6665f9579713410b05232c49 
