@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+
     <h1>Выгул собак</h1>
     <h3>Наши собаки</h3>
     {% if dogs %}
@@ -18,5 +19,14 @@
     {% endif %}
     <h3>Информация о приюте</h3>
     <p>бла бла бла</p>
+    {% if user.is_authenticated %}
+        <p>user: {{user.username}}</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <input type="submit" value="Выход">
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn">Вход в аккаунт</a>
+    {% endif %}
 </body>
 </html>
