@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Выгул собак</h1>
+    <h3>Наши собаки</h3>
+    {% if dogs %}
+        <ul>
+            {% for dog in dogs %}
+            <li>имя: {{dog.name}}, порода: {{dog.breed}}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>нет информации о собаках</p>
+    {% endif %}
+    <h3>Информация о приюте</h3>
+    <p>бла бла бла</p>
+</body>
+</html>
