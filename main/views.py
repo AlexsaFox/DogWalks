@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
-from main.models import Dog, UserSettings
+from main.forms import DogCreateForm
+from main.models import Dog, UserSettings, UserType
 
 
 # Create your views here.
@@ -40,4 +43,20 @@ def dogs_edit_page(request, id):
 
 
 def dogs_create_page(request):
-    pass
+    form = DogCreateForm()
+    if request.method == 'POST':
+        if request.user.usersettings.type != UserType.CURATOR:
+            raise Http404
+        form = DogCreateForm(request.POST)
+        if form.is_valid():
+            dog = Dog(
+                **form.cleaned_data,
+                is_actual=True,
+                curator=request.user,
+            )
+            dog.save()
+            return redirect(reverse('dog_view', kwargs={'id':dog.id}))
+    context = {
+        'form': form,
+    }
+    return render(request, 'dog_create.html', context)

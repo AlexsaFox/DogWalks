@@ -65,7 +65,7 @@ class Dog (models.Model):
     age = models.IntegerField(choices=DogAge.choices, default=DogAge.PUPPY)
     breed = models.TextField(default="дворняга", max_length="200")
     size = models.IntegerField(choices=DogSize.choices, default=DogSize.MIDDLE)
-    color = models.IntegerField(choices=DogColor)
+    color = models.IntegerField(choices=DogColor.choices)
     activity = models.TextField(max_length="500")
     relations_with_cats = models.BooleanField(null=True)
     relations_with_dogs = models.BooleanField(null=True)
