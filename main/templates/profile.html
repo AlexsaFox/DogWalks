@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'index' %}">Назад на главную</a>
+    <h2>{{ name }} {{ surname }}</h2>
+    <h3>{{ type }} {{ id_card }}</h3>
+
+    {% if dogs %}
+        <ul>
+            {% for dog in dogs %}
+            <li>имя: {{dog.name}}, порода: {{dog.breed}}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>нет информации о собаках</p>
+    {% endif %}
+</body>
+</html>

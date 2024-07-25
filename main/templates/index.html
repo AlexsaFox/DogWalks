@@ -25,6 +25,7 @@
             {% csrf_token %}
             <input type="submit" value="Выход">
         </form>
+        <a href="{% url 'profile' %}">профиль</a>
     {% else %}
         <a href="{% url 'login' %}" class="btn">Вход в аккаунт</a>
     {% endif %}

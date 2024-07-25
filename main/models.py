@@ -37,6 +37,9 @@ class UserSettings (models.Model):
             dogs.append(wud.dog)
         return dogs
 
+    def get_type(self):
+        return UserType(self.type).label
+
 
 class DogAge (models.IntegerChoices):
     NEWBORN = 1, "новорожденный щенок"
