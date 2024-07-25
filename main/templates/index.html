@@ -17,6 +17,7 @@
     {% else %}
         <p>нет информации о собаках</p>
     {% endif %}
+
     <h3>Информация о приюте</h3>
     <p>бла бла бла</p>
     {% if user.is_authenticated %}
@@ -26,6 +27,7 @@
             <input type="submit" value="Выход">
         </form>
         <a href="{% url 'profile' %}">профиль</a>
+        <a href="{% url 'dogs_list' %}">собаки</a>
     {% else %}
         <a href="{% url 'login' %}" class="btn">Вход в аккаунт</a>
     {% endif %}

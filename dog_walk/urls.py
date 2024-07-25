@@ -24,4 +24,9 @@ urlpatterns = [
     path('', views.index_page, name='index'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', views.profile_page, name='profile'),
+    path('dogs/', views.dogs_list_page, name='dogs_list'),
+    path('dogs/<int:id>/', views.dogs_view_page, name='dog_view'),
+    path('dogs/<int:id>/edit/', views.dogs_edit_page, name='dog_edit'),
+    path('dogs/create/', views.dogs_create_page, name='dog_create'),
+
 ]

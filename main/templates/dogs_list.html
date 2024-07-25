@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'index' %}">Назад на главную</a>
+    {% if request.user.usersettings.type == 2 %}
+        <a href="{% url 'dog_create' %}">Добавить собаку</a>
+    {% endif %}
+    {% if dogs %}
+        <ul>
+            {% for dog in dogs %}
+            <li>
+                имя: <a href="{% url 'dog_view' dog.id %}">{{dog.name}}</a>, порода: {{dog.breed}}
+                {% if request.user.usersettings.type == 2 %}
+                    <a href="{% url 'dog_edit' dog.id %}">Редактировать</a>
+                {% endif %}
+
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>нет информации о собаках</p>
+    {% endif %}
+</body>
+</html>

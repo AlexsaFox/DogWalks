@@ -22,3 +22,22 @@ def profile_page(request):
         'type': user.usersettings.get_type(),
     }
     return render(request, 'profile.html', context)
+
+
+def dogs_list_page(request):
+    context = {
+        'dogs': Dog.get_all_dogs(),
+    }
+    return render(request, 'dogs_list.html', context)
+
+
+def dogs_view_page(request, id):
+    pass
+
+
+def dogs_edit_page(request, id):
+    pass
+
+
+def dogs_create_page(request):
+    pass
